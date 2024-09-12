@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const dynamic = "force-dynamic"; // Ensure the page always fetches fresh data.
 
 async function fetchProducts(page = 1) {
@@ -33,6 +35,30 @@ export default async function Products({ searchParams }) {
           </h2>
         ))}
       </div>
+      <Pagination currentPage={page} />
+    </div>
+  );
+}
+
+function Pagination({ currentPage }) {
+  const pageNumber = parseInt(currentPage, 10);
+  const prevPage = pageNumber > 1 ? pageNumber - 1 : null;
+  const nextPage = pageNumber + 1;
+
+  return (
+    <div className="flex justify-between items-center mt-8">
+      {prevPage && (
+        <Link href={`/products?page=${prevPage}`}>
+          <button className="px-4 py-2 bg-pink-700 text-white rounded-lg hover:bg-pink-900 transition-colors duration-300">
+            Previous Page
+          </button>
+        </Link>
+      )}
+      <Link href={`/products?page=${nextPage}`}>
+        <button className="px-4 py-2 bg-pink-700 text-white rounded-lg hover:bg-pink-900 transition-colors duration-300">
+          Next Page
+        </button>
+      </Link>
     </div>
   );
 }
