@@ -17,12 +17,13 @@ export function ImageGallery({ images }) {
   };
 
   return (
-    <div className="w-full md:w-1/2">
-      <div className="relative w-full">
+    <div className="w-auto md:w-1/2">
+      {/* Main Image */}
+      <div className="relative w-full md:w-full h-96 ">
         <img
           src={images[currentIndex]}
           alt={`Product Image: ${currentIndex + 1}`}
-          className="w-full h-full object-contain rounded-lg shadow-lg transition-transform duration-500"
+          className="w-full h-full object-contain bg-gray-100 transition-transform duration-500"
         />
         {images.length > 1 && (
           <>
@@ -42,17 +43,17 @@ export function ImageGallery({ images }) {
         )}
       </div>
 
-      <div className="mt-8">
-        <h3 className="text-xl font-semibold mb-4">Image Gallery</h3>
-        <div className="flex gap-4 overflow-x-auto p-8">
+      {/* Image Gallery */}
+      <div className="mt-4 flex justify-center">
+        <div className="flex gap-4 overflow-x-auto p-4">
           {images.map((image, index) => (
             <img
               key={index}
               src={image}
               alt={`Gallery image ${index + 1}`}
-              className={`w-32 h-32 object-contain rounded-lg shadow-lg cursor-pointer transition-transform duration-200 ${
+              className={`w-24 h-24 object-contain shadow-lg cursor-pointer transition-transform duration-200 ${
                 currentIndex === index
-                  ? "scale-110 border-2 border-pink-500"
+                  ? "scale-110 border-2 bg-gray-100 border-b-black"
                   : ""
               }`}
               onClick={() => setCurrentIndex(index)}
@@ -104,8 +105,6 @@ export function SingleImageGallery({ images }) {
           </>
         )}
       </div>
-
     </div>
   );
 }
-
