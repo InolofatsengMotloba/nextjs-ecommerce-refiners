@@ -120,8 +120,8 @@ export default function ProductDetails({ params }) {
               product.reviews.map((review) => (
                 <div key={review.id} className="mb-4 border-b pb-4">
                   <p className="font-medium">
-                    {review.name} -{" "}
-                    <span className="text-gray-500">{review.date}</span>
+                    {review.reviewerName} -{" "}
+                    {new Date(review.date).toLocaleDateString()}
                   </p>
                   <p className="text-sm text-gray-600">{review.comment}</p>
                   <p className="text-sm font-semibold">
