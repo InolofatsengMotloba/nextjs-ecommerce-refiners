@@ -30,9 +30,11 @@ export default async function Products({ searchParams }) {
       <h1 className="text-3xl font-bold mb-8">Products - Page {page}</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {products.map((product) => (
-          <h2 className="text-lg font-semibold text-gray-800 truncate">
-            {product.title}
-          </h2>
+          <Link key={product.id} href={`/products/${product.id}`}>
+            <h2 className="text-lg font-semibold text-gray-800 truncate">
+              {product.title}
+            </h2>
+          </Link>
         ))}
       </div>
       <Pagination currentPage={page} />
