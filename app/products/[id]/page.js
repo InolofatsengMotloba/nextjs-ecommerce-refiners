@@ -13,24 +13,16 @@ async function fetchProduct(id) {
   return res.json();
 }
 
-export default function ProductDetails({ params }) {
+export default async function ProductDetails({ params }) {
   const { id } = params;
-  const [product, setProduct] = useState(null);
-  const [error, setError] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  let product;
 
-  useEffect(() => {
-    async function loadProduct() {
-      try {
-        const fetchedProduct = await fetchProduct(id);
-        setProduct(fetchedProduct);
-      } catch (err) {
-        setError("Failed to load product. Please try again later.");
-      }
-    }
-
-    loadProduct();
-  }, [id]);
+  try {
+    product = await fetchProduct(id);
+  } catch (error) {
+    return <p>Failed to load product. Please try again later.</p>;
+  }
 
   const handlePrevClick = () => {
     setCurrentIndex((prevIndex) =>
@@ -43,10 +35,6 @@ export default function ProductDetails({ params }) {
       prevIndex === product.images.length - 1 ? 0 : prevIndex + 1
     );
   };
-
-  if (error) {
-    return <p className="text-red-500">{error}</p>;
-  }
 
   if (!product) {
     return <p>Loading...</p>;
