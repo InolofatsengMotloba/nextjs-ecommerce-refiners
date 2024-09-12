@@ -81,30 +81,30 @@ export function SingleImageGallery({ images }) {
   };
 
   return (
-    <div className="w-full md:w-1/2">
-      <div className="relative w-full">
-        <img
-          src={images[currentIndex]}
-          alt={`Product Image: ${currentIndex + 1}`}
-          className="w-full h-full object-contain rounded-lg shadow-lg transition-transform duration-500"
-        />
-        {images.length > 1 && (
-          <>
-            <button
-              onClick={handlePrevClick}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-gray-800 p-2 rounded-full hover:bg-opacity-75"
-            >
-              ◀
-            </button>
-            <button
-              onClick={handleNextClick}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-gray-800 p-2 rounded-full hover:bg-opacity-75"
-            >
-              ▶
-            </button>
-          </>
-        )}
-      </div>
-    </div>
-  );
+  <div className="relative w-full h-64 overflow-hidden"> 
+    <img
+      src={images[currentIndex]}
+      alt={`Product Image: ${currentIndex + 1}`}
+      className="w-full h-full object-contain bg-gray-100 transition-transform duration-500" 
+    />
+    {images.length > 1 && (
+      <>
+        <button
+          onClick={handlePrevClick}
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-gray-800 p-2 rounded-full hover:bg-opacity-75"
+        >
+          ◀
+        </button>
+        <button
+          onClick={handleNextClick}
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-gray-800 p-2 rounded-full hover:bg-opacity-75"
+        >
+          ▶
+        </button>
+      </>
+    )}
+  </div>
+);
+
 }
+

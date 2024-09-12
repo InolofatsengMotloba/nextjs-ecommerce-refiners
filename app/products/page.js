@@ -27,25 +27,28 @@ export default async function Products({ searchParams }) {
   }
 
   return (
-    <div className="grid items-center justify-items-center p-8 pb-20 gap-16 sm:p-20 min-h-screen">
-      <h1 className="text-3xl font-bold mb-8">Products - Page {page}</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <div className=" max-w-6xl mx-auto p-8  pb-12 gap-8 sm:p-12 min-h-screen">
+      <h1 className="grid items-center justify-items-center text-2xl font-bold mb-6">
+        PRODUCTS
+      </h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((product) => (
-          <div key={product.id}>
-            <div className="border border-gray-200 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <SingleImageGallery images={product.images} />
-              <div className="p-4">
-                <h2 className="text-lg font-semibold text-gray-800 truncate">
-                  {product.title}
-                </h2>
-                <p className="text-gray-800 font-bold mt-2">${product.price}</p>
-                <p className="text-gray-500 text-sm">{product.category}</p>
-                <Link href={`/products/${product.id}`}>
-                  <button className="bg-black text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-gray-500">
-                    Product Details
-                  </button>
-                </Link>
-              </div>
+          <div
+            key={product.id}
+            className="border border-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
+          >
+            <SingleImageGallery images={product.images} />
+            <div className="p-3">
+              <h2 className="text-base font-semibold text-gray-800 truncate">
+                {product.title}
+              </h2>
+              <p className="text-gray-800 font-bold mt-1">${product.price}</p>
+              <p className="text-gray-500 text-xs">{product.category}</p>
+              <Link href={`/products/${product.id}`}>
+                <button className="bg-black text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-gray-600 transition-colors duration-300">
+                  Product Details
+                </button>
+              </Link>
             </div>
           </div>
         ))}
@@ -61,17 +64,18 @@ function Pagination({ currentPage }) {
   const nextPage = pageNumber + 1;
 
   return (
-    <div className="flex justify-between items-center mt-8">
+    <div className="flex justify-center items-center mt-8 space-x-2">
       {prevPage && (
         <Link href={`/products?page=${prevPage}`}>
-          <button className="px-4 py-2 bg-pink-700 text-white rounded-lg hover:bg-pink-900 transition-colors duration-300">
-            Previous Page
+          <button className="px-4 py-2 bg-[#2d7942] text-white rounded-lg hover:bg-[#1d5931] transition-colors duration-300">
+            Previous
           </button>
         </Link>
       )}
+      <span className="text-lg">Page {currentPage}</span>
       <Link href={`/products?page=${nextPage}`}>
-        <button className="px-4 py-2 bg-pink-700 text-white rounded-lg hover:bg-pink-900 transition-colors duration-300">
-          Next Page
+        <button className="px-4 py-2 bg-[#2d7942] text-white rounded-lg hover:bg-[#1d5931] transition-colors duration-300">
+          Next
         </button>
       </Link>
     </div>
