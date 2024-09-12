@@ -3,13 +3,15 @@ import Image from "next/image";
 
 export default function NavBar() {
   return (
-    <header className="bg-[#92969357] text-white py-2">
+    <header className="bg-black text-white py-2">
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/">
           <div className="flex items-center space-x-2">
-            <Image src="/Logo.png" alt="Logo" width={60} height={60} />
-            <h1 className="text-xl font-serif font-bold">Her Store</h1>
+            <Image src="/Logo2.png" alt="Logo" width={60} height={60} />
+            <h1 className="text-4xl text-[#2d7942] font-nerko font-bold">
+              Her Store
+            </h1>
           </div>
         </Link>
 
@@ -38,7 +40,7 @@ export default function NavBar() {
         <div>
           <Link
             href="/login"
-            className="bg-gray-400 text-white py-2 px-4 rounded hover:bg-gray-500"
+            className="text-white py-2 px-4 rounded hover:bg-gray-500"
           >
             Login
           </Link>

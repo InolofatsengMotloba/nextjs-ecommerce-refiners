@@ -11,6 +11,9 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        nerko: ['"Nerko One"', "cursive"], // Adding the Nerko One font
+      },
     },
   },
   plugins: [],
