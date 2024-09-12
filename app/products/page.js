@@ -31,9 +31,20 @@ export default async function Products({ searchParams }) {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {products.map((product) => (
           <Link key={product.id} href={`/products/${product.id}`}>
-            <h2 className="text-lg font-semibold text-gray-800 truncate">
-              {product.title}
-            </h2>
+            <div className="border border-gray-200 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <img
+                src={product.images[0]}
+                alt={product.title}
+                className="h-40 w-full object-contain"
+              />
+              <div className="p-4">
+                <h2 className="text-lg font-semibold text-gray-800 truncate">
+                  {product.title}
+                </h2>
+                <p className="text-gray-800 font-bold mt-2">${product.price}</p>
+                <p className="text-gray-500 text-sm">{product.category}</p>
+              </div>
+            </div>
           </Link>
         ))}
       </div>
