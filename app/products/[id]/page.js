@@ -17,6 +17,7 @@ export default function ProductDetails({ params }) {
   const { id } = params;
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     async function loadProduct() {
@@ -31,6 +32,18 @@ export default function ProductDetails({ params }) {
     loadProduct();
   }, [id]);
 
+  const handlePrevClick = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? product.images.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNextClick = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === product.images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
   if (error) {
     return <p className="text-red-500">{error}</p>;
   }
@@ -44,11 +57,29 @@ export default function ProductDetails({ params }) {
       <div className="flex flex-col md:flex-row">
         <div className="w-full md:w-1/2">
           {/* Product Image */}
-          <img
-            src={product.images[0]}
-            alt={product.title}
-            className="w-full h-full object-contain rounded-lg shadow-lg"
-          />
+          <div className="relative w-full">
+            <img
+              src={product.images[currentIndex]}
+              alt={product.title}
+              className="w-full h-full object-contain rounded-lg shadow-lg transition-transform duration-500"
+            />
+            {product.images.length > 1 && (
+              <>
+                <button
+                  onClick={handlePrevClick}
+                  className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-gray-800 p-2 rounded-full hover:bg-opacity-75"
+                >
+                  ◀
+                </button>
+                <button
+                  onClick={handleNextClick}
+                  className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-gray-800 p-2 rounded-full hover:bg-opacity-75"
+                >
+                  ▶
+                </button>
+              </>
+            )}
+          </div>
         </div>
         <div className="mt-6 md:mt-0 md:ml-8 flex-1">
           <h1 className="text-3xl font-bold mb-6">{product.title}</h1>
