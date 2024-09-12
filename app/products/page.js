@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SingleImageGallery } from "@/components/ImageGallery";
 
 export const dynamic = "force-dynamic"; // Ensure the page always fetches fresh data.
 
@@ -32,11 +33,7 @@ export default async function Products({ searchParams }) {
         {products.map((product) => (
           <div key={product.id}>
             <div className="border border-gray-200 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <img
-                src={product.images[0]}
-                alt={product.title}
-                className="h-40 w-full object-contain"
-              />
+              <SingleImageGallery images={product.images} />
               <div className="p-4">
                 <h2 className="text-lg font-semibold text-gray-800 truncate">
                   {product.title}

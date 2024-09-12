@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import ImageGallery from "@/components/ImageGallery";
+import { ImageGallery } from "@/components/ImageGallery";
 
 const BackButton = dynamic(() => import("@/components/BackButton"), {
   ssr: false,

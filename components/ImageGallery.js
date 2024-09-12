@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-export default function ImageGallery({ images }) {
+export function ImageGallery({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrevClick = () => {
@@ -63,3 +63,49 @@ export default function ImageGallery({ images }) {
     </div>
   );
 }
+
+export function SingleImageGallery({ images }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrevClick = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNextClick = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  return (
+    <div className="w-full md:w-1/2">
+      <div className="relative w-full">
+        <img
+          src={images[currentIndex]}
+          alt={`Product Image: ${currentIndex + 1}`}
+          className="w-full h-full object-contain rounded-lg shadow-lg transition-transform duration-500"
+        />
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={handlePrevClick}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-gray-800 p-2 rounded-full hover:bg-opacity-75"
+            >
+              ◀
+            </button>
+            <button
+              onClick={handleNextClick}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-gray-800 p-2 rounded-full hover:bg-opacity-75"
+            >
+              ▶
+            </button>
+          </>
+        )}
+      </div>
+
+    </div>
+  );
+}
+
