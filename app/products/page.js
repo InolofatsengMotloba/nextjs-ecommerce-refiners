@@ -30,7 +30,7 @@ export default async function Products({ searchParams }) {
       <h1 className="text-3xl font-bold mb-8">Products - Page {page}</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {products.map((product) => (
-          <Link key={product.id} href={`/products/${product.id}`}>
+          <div key={product.id}>
             <div className="border border-gray-200 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
               <img
                 src={product.images[0]}
@@ -43,9 +43,14 @@ export default async function Products({ searchParams }) {
                 </h2>
                 <p className="text-gray-800 font-bold mt-2">${product.price}</p>
                 <p className="text-gray-500 text-sm">{product.category}</p>
+                <Link href={`/products/${product.id}`}>
+                  <button className="bg-black text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-gray-500">
+                    Product Details
+                  </button>
+                </Link>
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
       <Pagination currentPage={page} />
