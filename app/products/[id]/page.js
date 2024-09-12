@@ -1,5 +1,4 @@
-"use client";
-import { useState, useEffect } from "react";
+import ImageGallery from "@/components/ImageGallery";
 
 async function fetchProduct(id) {
   const res = await fetch(
@@ -15,7 +14,6 @@ async function fetchProduct(id) {
 
 export default async function ProductDetails({ params }) {
   const { id } = params;
-  const [currentIndex, setCurrentIndex] = useState(0);
   let product;
 
   try {
@@ -24,18 +22,6 @@ export default async function ProductDetails({ params }) {
     return <p>Failed to load product. Please try again later.</p>;
   }
 
-  const handlePrevClick = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? product.images.length - 1 : prevIndex - 1
-    );
-  };
-
-  const handleNextClick = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === product.images.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
   if (!product) {
     return <p>Loading...</p>;
   }
@@ -43,51 +29,9 @@ export default async function ProductDetails({ params }) {
   return (
     <div className="max-w-5xl mx-auto p-8">
       <div className="flex flex-col md:flex-row">
-        <div className="w-full md:w-1/2">
-          {/* Product Image */}
-          <div className="relative w-full">
-            <img
-              src={product.images[currentIndex]}
-              alt={product.title}
-              className="w-full h-full object-contain rounded-lg shadow-lg transition-transform duration-500"
-            />
-            {product.images.length > 1 && (
-              <>
-                <button
-                  onClick={handlePrevClick}
-                  className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-gray-800 p-2 rounded-full hover:bg-opacity-75"
-                >
-                  ◀
-                </button>
-                <button
-                  onClick={handleNextClick}
-                  className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-gray-800 p-2 rounded-full hover:bg-opacity-75"
-                >
-                  ▶
-                </button>
-              </>
-            )}
-          </div>
-          {/* Image Gallery */}
-          <div className="mt-8">
-            <h3 className="text-xl font-semibold mb-4">Image Gallery</h3>
-            <div className="flex gap-4 overflow-x-auto p-8">
-              {product.images.map((image, index) => (
-                <img
-                  key={index}
-                  src={image}
-                  alt={`Gallery image ${index + 1}`}
-                  className={`w-32 h-32 object-contain rounded-lg shadow-lg cursor-pointer transition-transform duration-200 ${
-                    currentIndex === index
-                      ? "scale-110 border-2 border-pink-500"
-                      : ""
-                  }`}
-                  onClick={() => setCurrentIndex(index)}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+        {/* Product Image */}
+        <ImageGallery images={product.images} />
+
         <div className="mt-6 md:mt-0 md:ml-8 flex-1">
           <h1 className="text-3xl font-bold mb-6">{product.title}</h1>
           <p className="text-lg text-gray-700 mb-4">{product.description}</p>
