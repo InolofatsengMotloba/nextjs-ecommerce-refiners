@@ -1,4 +1,9 @@
+import dynamic from "next/dynamic";
 import ImageGallery from "@/components/ImageGallery";
+
+const BackButton = dynamic(() => import("@/components/BackButton"), {
+  ssr: false,
+});
 
 async function fetchProduct(id) {
   const res = await fetch(
@@ -28,6 +33,9 @@ export default async function ProductDetails({ params }) {
 
   return (
     <div className="max-w-5xl mx-auto p-8">
+      
+      <BackButton />
+
       <div className="flex flex-col md:flex-row">
         {/* Product Image */}
         <ImageGallery images={product.images} />
