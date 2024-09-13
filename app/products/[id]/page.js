@@ -11,7 +11,7 @@ async function fetchProduct(id) {
   );
 
   if (!res.ok) {
-    throw new Error("Failed to fetch product");
+    throw error
   }
 
   return res.json();
@@ -24,7 +24,7 @@ export default async function ProductDetails({ params }) {
   try {
     product = await fetchProduct(id);
   } catch (error) {
-    return <p>Failed to load product. Please try again later.</p>;
+    throw error
   }
 
   if (!product) {
