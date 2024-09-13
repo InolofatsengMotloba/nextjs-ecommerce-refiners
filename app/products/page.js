@@ -10,7 +10,7 @@ async function fetchProducts(page = 1) {
   );
 
   if (!res.ok) {
-    throw new Error("Failed to fetch products");
+    throw error;
   }
 
   return res.json();
@@ -23,7 +23,7 @@ export default async function Products({ searchParams }) {
   try {
     products = await fetchProducts(page);
   } catch (error) {
-    return <p>Failed to load products. Please try again later.</p>;
+    throw error;
   }
 
   return (
