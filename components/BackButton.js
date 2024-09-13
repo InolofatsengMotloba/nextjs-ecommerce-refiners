@@ -2,6 +2,11 @@
 
 import { useRouter } from "next/navigation";
 
+/**
+ * A button component that navigates to the previous page in the browser history.
+ *
+ * @returns {JSX.Element} The rendered BackButton component.
+ */
 export default function BackButton() {
   const router = useRouter();
 
