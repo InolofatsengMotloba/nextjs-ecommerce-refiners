@@ -3,6 +3,13 @@ import { SingleImageGallery } from "@/components/ImageGallery";
 
 export const dynamic = "force-dynamic"; // Ensure the page always fetches fresh data.
 
+/**
+ * Fetches products from the API with pagination.
+ *
+ * @param {number} [page=1] - The page number to fetch. Defaults to 1.
+ * @returns {Promise<Object[]>} A promise that resolves to an array of product objects.
+ * @throws {Error} Throws an error if the fetch request fails.
+ */
 async function fetchProducts(page = 1) {
   const skip = (page - 1) * 20;
   const res = await fetch(
@@ -16,6 +23,14 @@ async function fetchProducts(page = 1) {
   return res.json();
 }
 
+/**
+ * The Products page component that displays a list of products and pagination controls.
+ *
+ * @param {Object} props - The props for the component.
+ * @param {Object} props.searchParams - The search parameters from the URL.
+ * @param {string} [props.searchParams.page="1"] - The current page number from the URL. Defaults to "1".
+ * @returns {JSX.Element} The rendered Products page component.
+ */
 export default async function Products({ searchParams }) {
   const page = searchParams.page || 1;
   let products;
@@ -32,14 +47,18 @@ export default async function Products({ searchParams }) {
         <h1 className="grid items-center justify-center text-2xl font-bold mb-6">
           PRODUCTS
         </h1>
+
+        {/* Product Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
           {products.map((product) => (
             <div
               key={product.id}
               className="flex flex-col max-h-[100rem] border border-gray-200 shadow-md bg-white rounded-3xl overflow-hidden hover:shadow-lg hover:scale-105 transition duration-500 relative"
             >
+              {/* Product Image */}
               <SingleImageGallery alt={product.name} images={product.images} />
 
+              {/* Product Details */}
               <div className="flex-1 flex flex-col p-6">
                 <div className="flex-1">
                   <header className="mb-2 flex-2">
@@ -83,6 +102,13 @@ export default async function Products({ searchParams }) {
   );
 }
 
+/**
+ * A component that displays pagination controls for navigating between product pages.
+ *
+ * @param {Object} props - The props for the component.
+ * @param {string} props.currentPage - The current page number.
+ * @returns {JSX.Element} The rendered Pagination component.
+ */
 function Pagination({ currentPage }) {
   const pageNumber = parseInt(currentPage, 10);
   const prevPage = pageNumber > 1 ? pageNumber - 1 : null;
