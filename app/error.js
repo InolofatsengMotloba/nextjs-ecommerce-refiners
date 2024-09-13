@@ -10,7 +10,7 @@ export default function Error() {
   return (
     <div className="max-w-5xl mx-auto p-8">
       <BackButton />
-      <div className="flex flex-col justify-center items-center min-h-screen">
+      <div className="flex flex-col justify-center items-center mt-24">
         <div className="text-center bg-gray-100 shadow-lg rounded-lg p-8 max-w-md mx-auto">
           <svg
             className="w-16 h-16 mx-auto mb-4 text-red-500"
@@ -39,8 +39,7 @@ export default function Error() {
             Oops, Something Went Wrong!
           </h1>
           <p className="text-gray-600 mb-6">
-            We encountered an error. Please try
-            again later.
+            We encountered an error. Please try again later.
           </p>
           <button
             onClick={() => window.location.reload()}
