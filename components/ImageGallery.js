@@ -1,15 +1,31 @@
 "use client";
 import { useState } from "react";
 
+/**
+ * This component displays an image gallery with a main image and thumbnail previews.
+ * It allows navigation between images using next and previous buttons.
+ *
+ * @param {Object} props - The props for the component.
+ * @param {string[]} props.images - An array of image URLs to display in the gallery.
+ * @returns {JSX.Element} The rendered ImageGallery component.
+ */
 export function ImageGallery({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  /**
+   * Handles the click event for the previous button, navigating to the previous image.
+   * Wraps around to the last image if currently at the first image.
+   */
   const handlePrevClick = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
 
+  /**
+   * Handles the click event for the next button, navigating to the next image.
+   * Wraps around to the first image if currently at the last image.
+   */
   const handleNextClick = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
@@ -65,15 +81,31 @@ export function ImageGallery({ images }) {
   );
 }
 
+/**
+ * This component displays a single image with navigation buttons for a slideshow.
+ *
+ * @param {Object} props - The props for the component.
+ * @param {string[]} props.images - An array of image URLs to display in the slideshow.
+ * @returns {JSX.Element} The rendered SingleImageGallery component.
+ */
+
 export function SingleImageGallery({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  /**
+   * Handles the click event for the previous button, navigating to the previous image.
+   * Wraps around to the last image if currently at the first image.
+   */
   const handlePrevClick = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
 
+  /**
+   * Handles the click event for the next button, navigating to the next image.
+   * Wraps around to the first image if currently at the last image.
+   */
   const handleNextClick = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
