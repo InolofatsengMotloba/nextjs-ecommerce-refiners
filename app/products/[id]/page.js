@@ -47,47 +47,73 @@ export default async function ProductDetails({ params }) {
           <p className="text-sm text-gray-700 mb-4 border-b-black">
             {product.brand}
           </p>
-          <button
-            className={`text-sm font-medium mb-6 ${
-              product.stock > 0
-                ? "text-white bg-[#2d7942] px-2 py-1 rounded-md"
-                : "text-white bg-red-600 px-2 py-1 rounded-md"
-            }`}
-          >
-            {product.stock > 0 ? "In stock" : "Out of stock"}
-          </button>
-          <p className="text-xl text-gray-700 mb-4 border-b-black">
-            {product.description}
-          </p>
-          <p className="text-xl font-bold mb-4">$ {product.price}</p>
-          <p className="text-lg text-gray-700 mb-4 border-b-black">
+
+          <p className="text-base text-gray-700 mb-2">{product.description}</p>
+          <p className="text-lg text-gray-700 mb-2 border-b-black font-semibold">
             {product.category}
           </p>
-          {product.tags.map((tag, index) => (
+          <div className="flex flex-wrap justify-between items-center mb-3">
             <button
-              key={index}
-              className="border-2 font-bold border-black bg-white text-black m-1 px-2 py-1 text-bold rounded-md mb-4"
+              className={`text-sm font-medium ${
+                product.stock > 0
+                  ? "text-white bg-[#2d7942] px-2 py-1 rounded-md"
+                  : "text-white bg-red-600 px-2 py-1 rounded-md"
+              }`}
             >
-              {tag}
+              {product.stock > 0 ? "In stock" : "Out of stock"}
             </button>
-          ))}
+            <p className="text-xl font-bold">$ {product.price}</p>
+          </div>
+
+          <p className="text-base text-black font-semibold mb-2">
+            Rating: {product.rating}
+          </p>
+
+          <div className="flex flex-wrap items-center mb-4">
+            <h3 className="mr-2 font-semibold">Tags:</h3>
+            {product.tags.map((tag, index) => (
+              <button
+                key={index}
+                className="border-2 font-bold border-black bg-white text-black m-1 px-2 py-1 rounded-md"
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Product Reviews Section */}
       <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-        <h3 className="text-lg font-semibold mb-4">Reviews</h3>
+        <h3 className="text-lg font-extrabold mb-4">Reviews</h3>
         {product.reviews.length > 0 ? (
           product.reviews.map((review) => (
             <div key={review.id} className="mb-4 border-b pb-4">
-              <p className="font-medium">
+              <p className="font-bold">
                 {review.reviewerName} -{" "}
                 {new Date(review.date).toLocaleDateString()}
               </p>
-              <p className="text-sm text-gray-600">{review.comment}</p>
-              <p className="text-sm font-semibold">
-                Rating: ⭐ {review.rating}
-              </p>
+              <p className="text-sm text-gray-600 mt-2">{review.comment}</p>
+              <div className="flex items-center mt-1">
+                <div className="flex">
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <svg
+                      key={index}
+                      className={`w-4 h-4 ms-1 ${
+                        index < Math.round(review.rating)
+                          ? "text-yellow-400"
+                          : "text-gray-300"
+                      }`}
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 22 20"
+                    >
+                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    </svg>
+                  ))}
+                </div>
+              </div>
             </div>
           ))
         ) : (
