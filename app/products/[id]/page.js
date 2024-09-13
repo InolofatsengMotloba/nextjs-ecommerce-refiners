@@ -5,18 +5,33 @@ const BackButton = dynamic(() => import("@/components/BackButton"), {
   ssr: false,
 });
 
+/**
+ * Fetches product details from the API.
+ *
+ * @param {string} id - The ID of the product to fetch.
+ * @returns {Promise<Object>} A promise that resolves to a product object.
+ * @throws {Error} Throws an error if the fetch request fails.
+ */
 async function fetchProduct(id) {
   const res = await fetch(
     `https://next-ecommerce-api.vercel.app/products/${id}`
   );
 
   if (!res.ok) {
-    throw error
+    throw error;
   }
 
   return res.json();
 }
 
+/**
+ * The ProductDetails page component that displays detailed information about a single product.
+ *
+ * @param {Object} props - The props for the component.
+ * @param {Object} props.params - The route parameters.
+ * @param {string} props.params.id - The ID of the product to display.
+ * @returns {JSX.Element} The rendered ProductDetails page component.
+ */
 export default async function ProductDetails({ params }) {
   const { id } = params;
   let product;
@@ -24,7 +39,7 @@ export default async function ProductDetails({ params }) {
   try {
     product = await fetchProduct(id);
   } catch (error) {
-    throw error
+    throw error;
   }
 
   if (!product) {
@@ -42,6 +57,7 @@ export default async function ProductDetails({ params }) {
           images={product.images}
         />
 
+        {/* Product Details */}
         <div className="p-4 mt-6 md:mt-0 md:ml-8 flex-1">
           <h1 className="text-3xl font-bold mb-1">{product.title}</h1>
           <p className="text-sm text-gray-700 mb-4 border-b-black">
