@@ -17,7 +17,7 @@ export default function Home() {
         <p className="text-lg sm:text-xl mb-8">
           Discover an unbeatable selection of products that cater to all your
           needs. From trendy fashion and tech gadgets to home essentials and
-          beauty must-haves, SwiftCart has it all. Shop with ease, enjoy
+          beauty must-haves, Her Store has it all. Shop with ease, enjoy
           exclusive deals, and experience fast, reliable delivery. Ready to
           elevate your shopping game? Start exploring today!
         </p>
