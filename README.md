@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🏪 NEXT.JS CHALLENGE | FSJ 01👔
 
-## Getting Started
+## 🛒 Introduction
+In this project, I built an e-commerce store that features a product browsing system with pagination, detailed product views, and robust error handling. This experience allowed me to dive into essential web development concepts such as server-side rendering and efficient data fetching, all while ensuring a smooth and engaging user experience for exploring products and handling potential issues.
 
-First, run the development server:
+## 🤖 Technologies
+- Next.js: Framework for building the React application with server-side rendering
+- React: Utilized React's state management with useState for handling the image gallery
+- CSS3: Styling with Tailwind CSS for a utility-first approach
+- Error Boundaries: Implemented error boundaries or similar mechanisms to manage and display errors gracefully during data fetching
+- API: E-commerce product data provided through vercel
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Setup Instructions 🚀
+Requirements
+- Node.js: Ensure you have Node.js installed.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Clone the Repository & Open Terminal
+2. Install Dependencies: `npm install`
+3. Start the Development Server: npm run dev
+4. View the Live App: Follow the provided link to see the application in action.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Usage Examples 🛍️
+### Home Page 🏠
+The main page functions as the landing page for the shopping app, featuring a welcoming heading and a description of the store. It includes a prominent `Shop Now` button that directs users to a page displaying a list of products.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Products Page 🛒
+This page presents a grid of 20 product cards. Each card features the product’s image, title, description, price, and category, along with a `View Details` button. Clicking this button takes you to a page with comprehensive information about the product.
 
-## Learn More
+### Pagination
+Use the pagination controls to navigate through product pages. The URL updates to show the current page, and the page number is displayed next to the navigation buttons.
 
-To learn more about Next.js, take a look at the following resources:
+### Product Detail Page 📃
+To access the detail page, click on the `View Details` button from the products page . This page displays the product image on the left (with scrolling controls for multiple images) and includes the title, brand, description, price, category, tags, rating, and stock availability on the right. Below this, the reviews section lists each reviewer's name, the date the review was added, the comment, and the rating given.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Error Handling ❗
+Loading State: A loading indicator is shown while fetching data.
+Error Messages: Friendly error messages are displayed if product data fails to load.
