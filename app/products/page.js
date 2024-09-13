@@ -27,7 +27,7 @@ export default async function Products({ searchParams }) {
   }
 
   return (
-    <div className="bg-[#c4dbc4]">
+    <div>
       <div className="max-w-[90rem] mx-auto  p-8 pb-12 gap-8 sm:p-12 min-h-screen">
         <h1 className="grid items-center justify-center text-2xl font-bold mb-6">
           PRODUCTS
