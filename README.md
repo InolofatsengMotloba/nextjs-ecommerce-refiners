@@ -11,12 +11,11 @@ In this project, I built an e-commerce store that features a product browsing sy
 - API: E-commerce product data provided through vercel
 
 ## Setup Instructions 🚀
-Requirements
-- Node.js: Ensure you have Node.js installed.
+Requirements - Ensure you have Node.js installed.
 
 1. Clone the Repository & Open Terminal
 2. Install Dependencies: `npm install`
-3. Start the Development Server: npm run dev
+3. Start the Development Server: `npm run dev`
 4. View the Live App: Follow the provided link to see the application in action.
 
 ## Usage Examples 🛍️
