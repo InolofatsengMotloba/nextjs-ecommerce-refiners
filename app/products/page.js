@@ -115,7 +115,11 @@ export default async function Products({ searchParams }) {
         </div>
 
         {/* Pagination */}
-        <Pagination currentPage={page} searchQuery={search} />
+        <Pagination
+          currentPage={page}
+          searchQuery={search}
+          products={products}
+        />
       </div>
     </div>
   );
@@ -129,7 +133,7 @@ export default async function Products({ searchParams }) {
  * @param {string} props.searchQuery - The current search query.
  * @returns {JSX.Element} The rendered Pagination component.
  */
-function Pagination({ currentPage, searchQuery, category }) {
+function Pagination({ currentPage, searchQuery, category, products }) {
   const pageNumber = parseInt(currentPage, 10);
   const prevPage = pageNumber > 1 ? pageNumber - 1 : null;
   const nextPage = pageNumber + 1;
@@ -151,11 +155,13 @@ function Pagination({ currentPage, searchQuery, category }) {
         </Link>
       )}
       <span className="text-lg">Page {currentPage}</span>
-      <Link href={`/products?page=${nextPage}${searchParam}${categoryParam}`}>
-        <button className="px-4 py-2 bg-[#2d7942] text-white rounded-lg hover:bg-[#1d5931] transition-colors duration-300">
-          Next
-        </button>
-      </Link>
+      {products.length === 20 && (
+        <Link href={`/products?page=${nextPage}${searchParam}${categoryParam}`}>
+          <button className="px-4 py-2 bg-[#2d7942] text-white rounded-lg hover:bg-[#1d5931] transition-colors duration-300">
+            Next
+          </button>
+        </Link>
+      )}
     </div>
   );
 }
