@@ -1,19 +1,24 @@
+"use client"
+
 import Link from "next/link";
 import { SingleImageGallery } from "@/components/ImageGallery";
+import { useState } from "react";
 
 export const dynamic = "force-dynamic"; // Ensure the page always fetches fresh data.
 
 /**
- * Fetches products from the API with pagination.
+ * Fetches products from the API with pagination and optional search query.
  *
  * @param {number} [page=1] - The page number to fetch. Defaults to 1.
+ * @param {string} [search=""] - The search query string to filter products. Defaults to an empty string.
  * @returns {Promise<Object[]>} A promise that resolves to an array of product objects.
  * @throws {Error} Throws an error if the fetch request fails.
  */
-async function fetchProducts(page = 1) {
+async function fetchProducts(page = 1, search = "") {
   const skip = (page - 1) * 20;
+  const searchParam = search ? `&search=${encodeURIComponent(search)}` : "";
   const res = await fetch(
-    `https://next-ecommerce-api.vercel.app/products?limit=20&skip=${skip}`
+    `https://next-ecommerce-api.vercel.app/products?limit=20&skip=${skip}${searchParam}`
   );
 
   if (!res.ok) {
@@ -24,29 +29,34 @@ async function fetchProducts(page = 1) {
 }
 
 /**
- * The Products page component that displays a list of products and pagination controls.
+ * The Products page component that displays a list of products, search bar, and pagination controls.
  *
  * @param {Object} props - The props for the component.
  * @param {Object} props.searchParams - The search parameters from the URL.
  * @param {string} [props.searchParams.page="1"] - The current page number from the URL. Defaults to "1".
+ * @param {string} [props.searchParams.search=""] - The current search query from the URL. Defaults to an empty string.
  * @returns {JSX.Element} The rendered Products page component.
  */
 export default async function Products({ searchParams }) {
-  const page = searchParams.page || 1;
-  let products;
+  const page = parseInt(searchParams.page || "1", 10);
+  const search = searchParams.search || "";
 
+  let products;
   try {
-    products = await fetchProducts(page);
+    products = await fetchProducts(page, search);
   } catch (error) {
     throw error;
   }
 
   return (
     <div>
-      <div className="max-w-[90rem] mx-auto  p-8 pb-12 gap-8 sm:p-12 min-h-screen">
+      <div className="max-w-[90rem] mx-auto p-8 pb-12 gap-8 sm:p-12 min-h-screen">
         <h1 className="grid items-center justify-center text-2xl font-bold mb-6">
           PRODUCTS
         </h1>
+
+        {/* Search Bar */}
+        <SearchBar initialSearch={search} />
 
         {/* Product Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
@@ -96,7 +106,9 @@ export default async function Products({ searchParams }) {
             </div>
           ))}
         </div>
-        <Pagination currentPage={page} />
+
+        {/* Pagination */}
+        <Pagination currentPage={page} searchQuery={search} />
       </div>
     </div>
   );
@@ -107,28 +119,74 @@ export default async function Products({ searchParams }) {
  *
  * @param {Object} props - The props for the component.
  * @param {string} props.currentPage - The current page number.
+ * @param {string} props.searchQuery - The current search query.
  * @returns {JSX.Element} The rendered Pagination component.
  */
-function Pagination({ currentPage }) {
+function Pagination({ currentPage, searchQuery }) {
   const pageNumber = parseInt(currentPage, 10);
   const prevPage = pageNumber > 1 ? pageNumber - 1 : null;
   const nextPage = pageNumber + 1;
+  const searchParam = searchQuery
+    ? `&search=${encodeURIComponent(searchQuery)}`
+    : "";
 
   return (
     <div className="flex justify-center items-center mt-8 space-x-2">
       {prevPage && (
-        <Link href={`/products?page=${prevPage}`}>
+        <Link href={`/products?page=${prevPage}${searchParam}`}>
           <button className="px-4 py-2 bg-[#2d7942] text-white rounded-lg hover:bg-[#1d5931] transition-colors duration-300">
             Previous
           </button>
         </Link>
       )}
       <span className="text-lg">Page {currentPage}</span>
-      <Link href={`/products?page=${nextPage}`}>
+      <Link href={`/products?page=${nextPage}${searchParam}`}>
         <button className="px-4 py-2 bg-[#2d7942] text-white rounded-lg hover:bg-[#1d5931] transition-colors duration-300">
           Next
         </button>
       </Link>
     </div>
+  );
+}
+
+/**
+ * A component that displays a search bar.
+ *
+ * @param {Object} props - The props for the component.
+ * @param {string} props.initialSearch - The initial search query.
+ * @returns {JSX.Element} The rendered SearchBar component.
+ */
+function SearchBar({ initialSearch }) {
+  const [search, setSearch] = useState(initialSearch);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const searchQuery = search.trim();
+    if (searchQuery) {
+      window.location.href = `/products?page=1&search=${encodeURIComponent(
+        searchQuery
+      )}`;
+    } else {
+      window.location.href = `/products?page=1`;
+    }
+  };
+
+  return (
+    <form onSubmit={handleSearch} className="mb-6">
+      <div className="flex">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search products..."
+          className="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#2d7942]"
+        />
+        <button
+          type="submit"
+          className="px-4 py-2 bg-[#2d7942] text-white rounded-r-lg hover:bg-[#1d5931] transition-colors duration-300"
+        >
+          Search
+        </button>
+      </div>
+    </form>
   );
 }
