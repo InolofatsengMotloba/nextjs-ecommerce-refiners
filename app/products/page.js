@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SingleImageGallery } from "@/components/ImageGallery";
 import SearchBar from "@/components/SearchBar";
+import { CategoryFilterWrapper } from "@/components/CategoryFilter";
 
 export const dynamic = "force-dynamic"; // Ensure the page always fetches fresh data.
 
@@ -12,11 +13,15 @@ export const dynamic = "force-dynamic"; // Ensure the page always fetches fresh 
  * @returns {Promise<Object[]>} A promise that resolves to an array of product objects.
  * @throws {Error} Throws an error if the fetch request fails.
  */
-async function fetchProducts(page = 1, search = "") {
+async function fetchProducts(page = 1, search = "", category = "") {
   const skip = (page - 1) * 20;
   const searchParam = search ? `&search=${encodeURIComponent(search)}` : "";
+  const categoryParam = category
+    ? `&category=${encodeURIComponent(category)}`
+    : "";
+
   const res = await fetch(
-    `https://next-ecommerce-api.vercel.app/products?limit=20&skip=${skip}${searchParam}`
+    `https://next-ecommerce-api.vercel.app/products?limit=20&skip=${skip}${searchParam}${categoryParam}`
   );
 
   if (!res.ok) {
@@ -38,10 +43,11 @@ async function fetchProducts(page = 1, search = "") {
 export default async function Products({ searchParams }) {
   const page = parseInt(searchParams.page || "1", 10);
   const search = searchParams.search || "";
+  const category = searchParams.category || "";
 
-  let products;
+  let products = [];
   try {
-    products = await fetchProducts(page, search);
+    products = await fetchProducts(page, search, category);
   } catch (error) {
     throw error;
   }
@@ -52,6 +58,9 @@ export default async function Products({ searchParams }) {
         <h1 className="grid items-center justify-center text-2xl font-bold mb-6">
           PRODUCTS
         </h1>
+
+        {/* Filter by Category */}
+        <CategoryFilterWrapper initialCategory={category} />
 
         {/* Search Bar */}
         <SearchBar initialSearch={search} />
@@ -120,7 +129,7 @@ export default async function Products({ searchParams }) {
  * @param {string} props.searchQuery - The current search query.
  * @returns {JSX.Element} The rendered Pagination component.
  */
-function Pagination({ currentPage, searchQuery }) {
+function Pagination({ currentPage, searchQuery, category }) {
   const pageNumber = parseInt(currentPage, 10);
   const prevPage = pageNumber > 1 ? pageNumber - 1 : null;
   const nextPage = pageNumber + 1;
@@ -128,17 +137,21 @@ function Pagination({ currentPage, searchQuery }) {
     ? `&search=${encodeURIComponent(searchQuery)}`
     : "";
 
+  const categoryParam = category
+    ? `&category=${encodeURIComponent(category)}`
+    : "";
+
   return (
     <div className="flex justify-center items-center mt-8 space-x-2">
       {prevPage && (
-        <Link href={`/products?page=${prevPage}${searchParam}`}>
+        <Link href={`/products?page=${prevPage}${searchParam}${categoryParam}`}>
           <button className="px-4 py-2 bg-[#2d7942] text-white rounded-lg hover:bg-[#1d5931] transition-colors duration-300">
             Previous
           </button>
         </Link>
       )}
       <span className="text-lg">Page {currentPage}</span>
-      <Link href={`/products?page=${nextPage}${searchParam}`}>
+      <Link href={`/products?page=${nextPage}${searchParam}${categoryParam}`}>
         <button className="px-4 py-2 bg-[#2d7942] text-white rounded-lg hover:bg-[#1d5931] transition-colors duration-300">
           Next
         </button>
