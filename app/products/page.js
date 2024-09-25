@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SingleImageGallery } from "@/components/ImageGallery";
 import SearchBar from "@/components/SearchBar";
-import { CategoryFilterWrapper } from "@/components/CategoryFilter";
+import { CategoryFilterWrapper } from "@/components/FilterProducts";
 
 export const dynamic = "force-dynamic"; // Ensure the page always fetches fresh data.
 
