@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 /**
  * A component that displays a search bar.
@@ -10,27 +11,37 @@ import { useState } from "react";
  * @returns {JSX.Element} The rendered SearchBar component.
  */
 export default function SearchBar({ initialSearch }) {
-  const [search, setSearch] = useState(initialSearch);
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const searchQuery = search.trim();
+  const handleSearch = (event) => {
+    event.preventDefault();
+
+    const params = new URLSearchParams(searchParams);
     if (searchQuery) {
-      window.location.href = `/products?page=1&search=${encodeURIComponent(
-        searchQuery
-      )}`;
+      params.set("search", searchQuery);
     } else {
-      window.location.href = `/products?page=1`;
+      params.delete("search");
     }
+    params.set("page", "1"); // Reset to the first page when searching
+    router.push(`/products?${params.toString()}`);
   };
 
   return (
     <form onSubmit={handleSearch} className="mb-6">
+      <label
+        htmlFor="search"
+        className="block text-sm font-medium text-gray-700"
+      >
+        Search Products:
+      </label>
       <div className="flex">
         <input
           type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          id="search"
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
           placeholder="Search products..."
           className="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#2d7942]"
         />

@@ -10,6 +10,7 @@ export const dynamic = "force-dynamic"; // Ensure the page always fetches fresh 
  *
  * @param {number} [page=1] - The page number to fetch. Defaults to 1.
  * @param {string} [search=""] - The search query string to filter products. Defaults to an empty string.
+ * @param {string} [category=""] - The category to filter products by. Defaults to an empty string.
  * @returns {Promise<Object[]>} A promise that resolves to an array of product objects.
  * @throws {Error} Throws an error if the fetch request fails.
  */
@@ -118,6 +119,7 @@ export default async function Products({ searchParams }) {
         <Pagination
           currentPage={page}
           searchQuery={search}
+          category={category}
           products={products}
         />
       </div>
@@ -129,8 +131,10 @@ export default async function Products({ searchParams }) {
  * A component that displays pagination controls for navigating between product pages.
  *
  * @param {Object} props - The props for the component.
- * @param {string} props.currentPage - The current page number.
+ * @param {number} props.currentPage - The current page number.
  * @param {string} props.searchQuery - The current search query.
+ * @param {string} props.category - The current category filter.
+ * @param {Array} props.products - The list of products on the current page.
  * @returns {JSX.Element} The rendered Pagination component.
  */
 function Pagination({ currentPage, searchQuery, category, products }) {
@@ -140,7 +144,6 @@ function Pagination({ currentPage, searchQuery, category, products }) {
   const searchParam = searchQuery
     ? `&search=${encodeURIComponent(searchQuery)}`
     : "";
-
   const categoryParam = category
     ? `&category=${encodeURIComponent(category)}`
     : "";
