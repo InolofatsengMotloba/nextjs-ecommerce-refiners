@@ -12,10 +12,46 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        {/* Meta data */}
+
+        <title>Her Store</title>
+        <meta name="title" content="Her Store" />
+        <meta
+          name="description"
+          content="Explore a place where limitless options come together with your everyday must-haves. Find everything you need to enhance your daily life."
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://metatags.io/" />
+        <meta property="og:title" content="Her Store" />
+        <meta
+          property="og:description"
+          content="Explore a place where limitless options come together with your everyday must-haves. Find everything you need to enhance your daily life."
+        />
+        <meta
+          property="og:image"
+          content="https://metatags.io/images/meta-tags.png"
+        />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://metatags.io/" />
+        <meta property="twitter:title" content="Her Store" />
+        <meta
+          property="twitter:description"
+          content="Explore a place where limitless options come together with your everyday must-haves. Find everything you need to enhance your daily life."
+        />
+        <meta
+          property="twitter:image"
+          content="https://metatags.io/images/meta-tags.png"
+        />
+
+        {/* Fonts */}
         <link
           href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap"
           rel="stylesheet"
         />
+
+        {/* Favicon */}
         <link
           rel="apple-touch-icon"
           sizes="180x180"
