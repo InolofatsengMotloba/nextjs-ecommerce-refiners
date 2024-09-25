@@ -29,7 +29,7 @@ export default function SearchBar({ initialSearch }) {
   };
 
   return (
-    <form onSubmit={handleSearch} className="mb-6">
+    <form onSubmit={handleSearch} className="mb-4">
       <label
         htmlFor="search"
         className="block text-sm font-medium text-gray-700"
