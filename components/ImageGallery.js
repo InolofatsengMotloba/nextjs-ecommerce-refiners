@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
 /**
  * This component displays an image gallery with a main image and thumbnail previews.
@@ -35,11 +36,13 @@ export function ImageGallery({ images }) {
   return (
     <div className="w-auto md:w-1/2">
       {/* Main Image */}
-      <div className="relative w-full md:w-full h-96 ">
-        <img
+      <div className="relative w-full md:w-full h-96">
+        <Image
           src={images[currentIndex]}
           alt={`Product Image: ${currentIndex + 1}`}
           className="w-full h-full object-contain bg-gray-100 transition-transform duration-500"
+          width={400}
+          height={300}
         />
         {images.length > 1 && (
           <>
@@ -63,7 +66,7 @@ export function ImageGallery({ images }) {
       <div className="mt-4 flex justify-center">
         <div className="flex gap-4 overflow-x-auto p-4">
           {images.map((image, index) => (
-            <img
+            <Image
               key={index}
               src={image}
               alt={`Gallery image ${index + 1}`}
@@ -72,6 +75,8 @@ export function ImageGallery({ images }) {
                   ? "scale-110 border-2 bg-gray-100 border-b-black"
                   : ""
               }`}
+              width={24}
+              height={24}
               onClick={() => setCurrentIndex(index)}
             />
           ))}
@@ -114,10 +119,12 @@ export function SingleImageGallery({ images }) {
 
   return (
     <div className="relative w-full h-60 overflow-hidden">
-      <img
+      <Image
         src={images[currentIndex]}
         alt={`Product Image: ${currentIndex + 1}`}
-        className="w-full h-full object-contain bg-gray-100 transition-transform duration-500"
+        className="w-full h-full object-contain transition-transform duration-500 bg-gray-100"
+        height={60}
+        width={310}
       />
       {images.length > 1 && (
         <>
