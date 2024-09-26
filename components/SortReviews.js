@@ -61,7 +61,10 @@ export function ReviewsSort({ reviews }) {
       <h3 className="text-lg font-extrabold mb-4">Reviews</h3>
       {ratingSortedReviews.length > 0 ? (
         ratingSortedReviews.map((review) => (
-          <div key={review.id} className="mb-4 border-b pb-4">
+          <div
+            key={`${review.reviewerName}-${review.date}`}
+            className="mb-4 border-b pb-4"
+          >
             <p className="font-bold">
               {review.reviewerName} -{" "}
               {new Date(review.date).toLocaleDateString()}
