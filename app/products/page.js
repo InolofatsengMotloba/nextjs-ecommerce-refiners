@@ -19,14 +19,14 @@ async function fetchProducts(
   search = "",
   category = "",
   sortBy = "id",
-  order = "asc"
+  order = ""
 ) {
   const skip = (page - 1) * 20;
   const searchParam = search ? `&search=${encodeURIComponent(search)}` : "";
   const categoryParam = category
     ? `&category=${encodeURIComponent(category)}`
     : "";
-  const sortParam = `&sortBy=${sortBy}&order=${order}`;
+  const sortParam = sortBy ? `&sortBy=${sortBy}&order=${order}` : "";
 
   const res = await fetch(
     `https://next-ecommerce-api.vercel.app/products?limit=20&skip=${skip}${searchParam}${categoryParam}${sortParam}`,
@@ -57,8 +57,8 @@ export default async function Products({ searchParams }) {
   const page = parseInt(searchParams.page || "1", 10);
   const search = searchParams.search || "";
   const category = searchParams.category || "";
-  const sortBy = searchParams.sortBy || "id"; // Default sort field is "id"
-  const order = searchParams.order || "asc"; // Default order is ascending
+  const sortBy = searchParams.sortBy || "";
+  const order = searchParams.order || "";
 
   let products = [];
   try {
@@ -176,7 +176,7 @@ function Pagination({
   const categoryParam = category
     ? `&category=${encodeURIComponent(category)}`
     : "";
-  const sortParam = `&sortBy=${sortBy}&order=${order}`;
+  const sortParam = sortBy && order ? `&sortBy=${sortBy}&order=${order}` : "";
 
   return (
     <div className="flex justify-center items-center mt-8 space-x-2">
