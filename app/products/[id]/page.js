@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { ImageGallery } from "@/components/ImageGallery";
+import ReviewsSort from "@/components/SortReviews";
 
 const BackButton = dynamic(() => import("@/components/BackButton"), {
   ssr: false,
@@ -98,6 +99,7 @@ export default async function ProductDetails({ params }) {
       {/* Product Reviews Section */}
       <div className="bg-gray-100 p-4 rounded-lg shadow-md">
         <h3 className="text-lg font-extrabold mb-4">Reviews</h3>
+        <ReviewsSort />
         {product.reviews.length > 0 ? (
           product.reviews.map((review) => (
             <div key={review.id} className="mb-4 border-b pb-4">
