@@ -13,12 +13,19 @@ async function fetchCategories() {
   return res.json();
 }
 
-export function CategoryFilter({ initialCategory }) {
+export function CategoryFilter() {
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // Sync the filter state with the query parameters on load
+  useEffect(() => {
+    const category = searchParams.get("category") || "";
+    setSelectedCategory(category);
+  }, [searchParams]);
+
+  // Fetch categories when component mounts
   useEffect(() => {
     async function loadCategories() {
       try {
@@ -69,8 +76,4 @@ export function CategoryFilter({ initialCategory }) {
       </select>
     </div>
   );
-}
-
-export function CategoryFilterWrapper({ initialCategory }) {
-  return <CategoryFilter initialCategory={initialCategory} />;
 }

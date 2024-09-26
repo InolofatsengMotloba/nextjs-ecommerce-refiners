@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SingleImageGallery } from "@/components/ImageGallery";
 import SearchBar from "@/components/SearchBar";
-import { CategoryFilterWrapper } from "@/components/FilterProducts";
+import { CategoryFilter } from "@/components/FilterProducts";
 import PriceSort from "@/components/SortProducts";
 import ResetButton from "@/components/ResetButton";
 
@@ -72,7 +72,7 @@ export default async function Products({ searchParams }) {
         </h1>
 
         {/* Filter by Category */}
-        <CategoryFilterWrapper initialCategory={category} />
+        <CategoryFilter initialCategory={category} />
 
         {/* Search Bar */}
         <SearchBar initialSearch={search} />
