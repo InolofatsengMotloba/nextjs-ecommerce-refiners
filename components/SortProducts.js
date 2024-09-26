@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 /**
@@ -13,6 +13,12 @@ export default function PriceSort() {
   const [sortOrder, setSortOrder] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // Sync sort order with the URL query parameters on load
+  useEffect(() => {
+    const order = searchParams.get("order") || "";
+    setSortOrder(order);
+  }, [searchParams]);
 
   const handleSortChange = (event) => {
     const selectedOrder = event.target.value;
