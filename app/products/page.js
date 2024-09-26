@@ -15,15 +15,22 @@ export const dynamic = "force-dynamic"; // Ensure the page always fetches fresh 
  * @returns {Promise<Object[]>} A promise that resolves to an array of product objects.
  * @throws {Error} Throws an error if the fetch request fails.
  */
-async function fetchProducts(page = 1, search = "", category = "") {
+async function fetchProducts(
+  page = 1,
+  search = "",
+  category = "",
+  sortBy = "id",
+  order = "asc"
+) {
   const skip = (page - 1) * 20;
   const searchParam = search ? `&search=${encodeURIComponent(search)}` : "";
   const categoryParam = category
     ? `&category=${encodeURIComponent(category)}`
     : "";
+  const sortParam = `&sortBy=${sortBy}&order=${order}`;
 
   const res = await fetch(
-    `https://next-ecommerce-api.vercel.app/products?limit=20&skip=${skip}${searchParam}${categoryParam}`
+    `https://next-ecommerce-api.vercel.app/products?limit=20&skip=${skip}${searchParam}${categoryParam}${sortParam}`
   );
 
   if (!res.ok) {
@@ -46,10 +53,12 @@ export default async function Products({ searchParams }) {
   const page = parseInt(searchParams.page || "1", 10);
   const search = searchParams.search || "";
   const category = searchParams.category || "";
+  const sortBy = searchParams.sortBy || "id"; // Default sort field is "id"
+  const order = searchParams.order || "asc"; // Default order is ascending
 
   let products = [];
   try {
-    products = await fetchProducts(page, search, category);
+    products = await fetchProducts(page, search, category, sortBy, order);
   } catch (error) {
     throw error;
   }
@@ -125,6 +134,8 @@ export default async function Products({ searchParams }) {
           searchQuery={search}
           category={category}
           products={products}
+          sortBy={sortBy}
+          order={order}
         />
       </div>
     </div>
@@ -141,7 +152,14 @@ export default async function Products({ searchParams }) {
  * @param {Array} props.products - The list of products on the current page.
  * @returns {JSX.Element} The rendered Pagination component.
  */
-function Pagination({ currentPage, searchQuery, category, products }) {
+function Pagination({
+  currentPage,
+  searchQuery,
+  category,
+  sortBy,
+  order,
+  products,
+}) {
   const pageNumber = parseInt(currentPage, 10);
   const prevPage = pageNumber > 1 ? pageNumber - 1 : null;
   const nextPage = pageNumber + 1;
@@ -151,11 +169,14 @@ function Pagination({ currentPage, searchQuery, category, products }) {
   const categoryParam = category
     ? `&category=${encodeURIComponent(category)}`
     : "";
+  const sortParam = `&sortBy=${sortBy}&order=${order}`;
 
   return (
     <div className="flex justify-center items-center mt-8 space-x-2">
       {prevPage && (
-        <Link href={`/products?page=${prevPage}${searchParam}${categoryParam}`}>
+        <Link
+          href={`/products?page=${prevPage}${searchParam}${categoryParam}${sortParam}`}
+        >
           <button className="px-4 py-2 bg-[#2d7942] text-white rounded-lg hover:bg-[#1d5931] transition-colors duration-300">
             Previous
           </button>
@@ -163,7 +184,9 @@ function Pagination({ currentPage, searchQuery, category, products }) {
       )}
       <span className="text-lg">Page {currentPage}</span>
       {products.length === 20 && (
-        <Link href={`/products?page=${nextPage}${searchParam}${categoryParam}`}>
+        <Link
+          href={`/products?page=${nextPage}${searchParam}${categoryParam}${sortParam}`}
+        >
           <button className="px-4 py-2 bg-[#2d7942] text-white rounded-lg hover:bg-[#1d5931] transition-colors duration-300">
             Next
           </button>
