@@ -3,6 +3,7 @@ import { SingleImageGallery } from "@/components/ImageGallery";
 import SearchBar from "@/components/SearchBar";
 import { CategoryFilterWrapper } from "@/components/FilterProducts";
 import PriceSort from "@/components/SortProducts";
+import ResetButton from "@/components/ResetButton";
 
 export const dynamic = "force-dynamic"; // Ensure the page always fetches fresh data.
 
@@ -78,6 +79,9 @@ export default async function Products({ searchParams }) {
 
         {/* Sort by Price */}
         <PriceSort />
+
+        {/* Reset Button */}
+        <ResetButton />
 
         {/* Product Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
