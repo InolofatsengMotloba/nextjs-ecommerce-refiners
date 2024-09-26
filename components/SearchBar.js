@@ -1,19 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 /**
  * A component that displays a search bar.
  *
- * @param {Object} props - The props for the component.
- * @param {string} props.initialSearch - The initial search query.
  * @returns {JSX.Element} The rendered SearchBar component.
  */
-export default function SearchBar({ initialSearch }) {
-  const [searchQuery, setSearchQuery] = useState(initialSearch);
+export default function SearchBar() {
+  const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // Sync search query with URL query parameters on load
+  useEffect(() => {
+    const search = searchParams.get("search") || "";
+    setSearchQuery(search);
+  }, [searchParams]);
 
   const handleSearch = (event) => {
     event.preventDefault();
