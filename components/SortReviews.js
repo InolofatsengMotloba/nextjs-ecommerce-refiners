@@ -4,22 +4,32 @@ import { useState } from "react";
 
 export function ReviewsSort({ reviews }) {
   const [sortOrder, setSortOrder] = useState("latest");
+  const [ratingSortOrder, setRatingSortOrder] = useState("highest");
 
   // Sorting reviews based on selected order
   const sortedReviews = [...reviews].sort((a, b) => {
     if (sortOrder === "latest") {
       return new Date(b.date) - new Date(a.date); // latest first
-    } else {
+    } else if (sortOrder === "earliest") {
       return new Date(a.date) - new Date(b.date); // earliest first
+    }
+  });
+
+  // Sorting reviews by rating
+  const ratingSortedReviews = sortedReviews.sort((a, b) => {
+    if (ratingSortOrder === "highest") {
+      return b.rating - a.rating; // highest rating first
+    } else if (ratingSortOrder === "lowest") {
+      return a.rating - b.rating; // lowest rating first
     }
   });
 
   return (
     <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-      {/* Sort Reviews */}
+      {/* Sort by Date */}
       <div className="flex items-center mb-4">
         <label htmlFor="sortOrder" className="mr-2 font-semibold">
-          Sort by:
+          Sort by Date:
         </label>
         <select
           id="sortOrder"
@@ -32,9 +42,25 @@ export function ReviewsSort({ reviews }) {
         </select>
       </div>
 
+      {/* Sort by Rating */}
+      <div className="flex items-center mb-4">
+        <label htmlFor="ratingSortOrder" className="mr-2 font-semibold">
+          Sort by Rating:
+        </label>
+        <select
+          id="ratingSortOrder"
+          value={ratingSortOrder}
+          onChange={(e) => setRatingSortOrder(e.target.value)}
+          className="border px-2 py-1 rounded-md"
+        >
+          <option value="highest">Highest Rating</option>
+          <option value="lowest">Lowest Rating</option>
+        </select>
+      </div>
+
       <h3 className="text-lg font-extrabold mb-4">Reviews</h3>
-      {sortedReviews.length > 0 ? (
-        sortedReviews.map((review) => (
+      {ratingSortedReviews.length > 0 ? (
+        ratingSortedReviews.map((review) => (
           <div key={review.id} className="mb-4 border-b pb-4">
             <p className="font-bold">
               {review.reviewerName} -{" "}
