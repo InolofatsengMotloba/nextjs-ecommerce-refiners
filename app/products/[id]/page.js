@@ -15,7 +15,12 @@ const BackButton = dynamic(() => import("@/components/BackButton"), {
  */
 async function fetchProduct(id) {
   const res = await fetch(
-    `https://next-ecommerce-api.vercel.app/products/${id}`
+    `https://next-ecommerce-api.vercel.app/products/${id}`,
+    {
+      
+      cache: "force-cache", 
+      next: { revalidate: 60 }, 
+    }
   );
 
   if (!res.ok) {

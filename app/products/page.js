@@ -5,8 +5,6 @@ import { CategoryFilter } from "@/components/FilterProducts";
 import PriceSort from "@/components/SortProducts";
 import ResetButton from "@/components/ResetButton";
 
-export const dynamic = "force-dynamic"; // Ensure the page always fetches fresh data.
-
 /**
  * Fetches products from the API with pagination and optional search query.
  *
@@ -31,7 +29,12 @@ async function fetchProducts(
   const sortParam = `&sortBy=${sortBy}&order=${order}`;
 
   const res = await fetch(
-    `https://next-ecommerce-api.vercel.app/products?limit=20&skip=${skip}${searchParam}${categoryParam}${sortParam}`
+    `https://next-ecommerce-api.vercel.app/products?limit=20&skip=${skip}${searchParam}${categoryParam}${sortParam}`,
+    {
+      
+      cache: "force-cache", 
+      next: { revalidate: 60 }, 
+    }
   );
 
   if (!res.ok) {
