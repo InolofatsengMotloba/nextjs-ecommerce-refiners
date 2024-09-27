@@ -2,10 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FaFilter } from "react-icons/fa"; 
+import { FaFilter } from "react-icons/fa";
 
 async function fetchCategories() {
-  const res = await fetch("https://next-ecommerce-api.vercel.app/categories");
+  const res = await fetch("https://next-ecommerce-api.vercel.app/categories", {
+    cache: "force-cache",
+    next: { revalidate: 1800 },
+  });
 
   if (!res.ok) {
     throw error;

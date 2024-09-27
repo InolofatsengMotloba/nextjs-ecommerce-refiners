@@ -32,7 +32,7 @@ async function fetchProducts(
     `https://next-ecommerce-api.vercel.app/products?limit=20&skip=${skip}${searchParam}${categoryParam}${sortParam}`,
     {
       cache: "force-cache",
-      next: { revalidate: 60 },
+      next: { revalidate: 1800 },
     }
   );
 
