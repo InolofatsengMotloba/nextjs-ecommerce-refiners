@@ -28,8 +28,21 @@ This page presents a grid of 20 product cards. Each card features the product’
 ### Pagination
 Use the pagination controls to navigate through product pages. The URL updates to show the current page, and the page number is displayed next to the navigation buttons.
 
+### Search, Filter, Sort & Reset
+- **Search Products by Title:** Users can search for products by entering a title or part of a title in the search bar. The application dynamically updates the product list based on the search query, allowing users to find items easily.
+- **Filter by Categories:** Users can filter products by selecting a category from a dropdown menu. The application will update the displayed products to show only those that belong to the chosen category.
+- **Sort Products by Price:** The product list can be sorted in ascending or descending order based on price, providing flexibility for users looking for either budget-friendly or premium products.
+- **URL Persistence for Search, Filter & Sort:** The search, filter, and sort parameters are reflected in the URL. This ensures that users can share or bookmark the current view, and others can access the exact product listing they are viewing.
+- **Pagination of Filtered Results:** If filtered and sorted results exceed 20 products, pagination controls will be shown to navigate through the results while preserving the selected filters and sorts.
+- **Retain Search, Filter & Sort on Navigation:** When users navigate to a detailed product view and return to the product listing, their previously applied search, filter, and sort selections will be retained, avoiding the need to reapply them.
+- **Reset Search, Filter & Sort:** A reset option is available, allowing users to clear all search, filtering, and sorting options at once. This will revert the product list to its default state.
+
 ### Product Detail Page 📃
 To access the detail page, click on the `View Details` button from the products page . This page displays the product image on the left (with scrolling controls for multiple images) and includes the title, brand, description, price, category, tags, rating, and stock availability on the right. Below this, the reviews section lists each reviewer's name, the date the review was added, the comment, and the rating given.
+
+#### Reviews
+- **Sort Reviews by Date:** Users can sort the reviews on the product detail page by the date they were added. Options are provided to sort from the latest added review to the earliest, helping users read the most recent feedback or focus on older reviews.
+- **Sort Reviews by Rating:** Reviews can also be sorted by the rating provided by customers. Users can choose to see the highest-rated or lowest-rated reviews first, allowing them to evaluate products based on positive or negative experiences.
 
 ### Error Handling ❗
 Loading State: A loading indicator is shown while fetching data.
