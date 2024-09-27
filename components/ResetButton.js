@@ -19,7 +19,7 @@ export default function ResetButton() {
   return (
     <button
       onClick={handleReset}
-      className="mb-4 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-700 transition-colors duration-300"
+      className="mb-4 px-4 py-2 bg-[#2d7942] text-white rounded-full shadow-md hover:bg-[#1e5b32] transition-colors duration-300"
     >
       Reset All Filters
     </button>
