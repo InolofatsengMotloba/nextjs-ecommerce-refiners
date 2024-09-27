@@ -2,6 +2,15 @@
 
 import dynamic from "next/dynamic";
 
+/**
+ * Dynamically imports the BackButton component.
+ *
+ * This component is loaded only on the client side (SSR is disabled)
+ * to improve performance and reduce server-side rendering overhead.
+ *
+ * @constant {React.Component} BackButton
+ *
+ */
 const BackButton = dynamic(() => import("@/components/BackButton"), {
   ssr: false,
 });

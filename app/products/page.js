@@ -6,13 +6,20 @@ import PriceSort from "@/components/SortProducts";
 import ResetButton from "@/components/ResetButton";
 
 /**
- * Fetches products from the API with pagination and optional search query.
+ * Fetches a paginated list of products from the e-commerce API.
  *
- * @param {number} [page=1] - The page number to fetch. Defaults to 1.
- * @param {string} [search=""] - The search query string to filter products. Defaults to an empty string.
- * @param {string} [category=""] - The category to filter products by. Defaults to an empty string.
- * @returns {Promise<Object[]>} A promise that resolves to an array of product objects.
- * @throws {Error} Throws an error if the fetch request fails.
+ * This function supports searching, filtering by category, and sorting the results.
+ *
+ * @async
+ * @function fetchProducts
+ * @param {number} [page=1] - The page number to fetch (default is 1).
+ * @param {string} [search=""] - The search query to filter products by name (default is an empty string).
+ * @param {string} [category=""] - The category to filter products (default is an empty string).
+ * @param {string} [sortBy="id"] - The field to sort by (default is "id").
+ * @param {string} [order=""] - The order to sort the results (e.g., "asc" or "desc").
+ * @returns {Promise<Object>} A promise that resolves to an array of product objects.
+ * @throws {Error} Throws an error if the response is not OK.
+ *
  */
 async function fetchProducts(
   page = 1,
@@ -44,13 +51,22 @@ async function fetchProducts(
 }
 
 /**
- * The Products page component that displays a list of products, search bar, and pagination controls.
+ * Products component that fetches and displays a list of products based on search parameters.
  *
- * @param {Object} props - The props for the component.
- * @param {Object} props.searchParams - The search parameters from the URL.
- * @param {string} [props.searchParams.page="1"] - The current page number from the URL. Defaults to "1".
- * @param {string} [props.searchParams.search=""] - The current search query from the URL. Defaults to an empty string.
- * @returns {JSX.Element} The rendered Products page component.
+ * This component handles pagination, searching, filtering by category, and sorting.
+ *
+ * @async
+ * @function Products
+ * @param {Object} props - The component props.
+ * @param {Object} props.searchParams - The search parameters for fetching products.
+ * @param {string} [props.searchParams.page="1"] - The page number for pagination (defaults to "1").
+ * @param {string} [props.searchParams.search=""] - The search query for filtering products (defaults to an empty string).
+ * @param {string} [props.searchParams.category=""] - The category for filtering products (defaults to an empty string).
+ * @param {string} [props.searchParams.sortBy=""] - The field to sort by (defaults to an empty string).
+ * @param {string} [props.searchParams.order=""] - The order to sort the results (e.g., "asc" or "desc").
+ * @returns {JSX.Element} The rendered component containing product cards, search bar, filters, and pagination.
+ * @throws {Error} Throws an error if fetching products fails.
+ *
  */
 export default async function Products({ searchParams }) {
   const page = parseInt(searchParams.page || "1", 10);
@@ -149,14 +165,20 @@ export default async function Products({ searchParams }) {
 }
 
 /**
- * A component that displays pagination controls for navigating between product pages.
+ * Pagination component that provides navigation between pages of product listings.
  *
- * @param {Object} props - The props for the component.
+ * This component displays the current page number and provides buttons to navigate to the previous and next pages.
+ *
+ * @function Pagination
+ * @param {Object} props - The component props.
  * @param {number} props.currentPage - The current page number.
- * @param {string} props.searchQuery - The current search query.
- * @param {string} props.category - The current category filter.
- * @param {Array} props.products - The list of products on the current page.
- * @returns {JSX.Element} The rendered Pagination component.
+ * @param {string} props.searchQuery - The current search query for filtering products.
+ * @param {string} props.category - The current category for filtering products.
+ * @param {string} props.sortBy - The field to sort by.
+ * @param {string} props.order - The order to sort the results (e.g., "asc" or "desc").
+ * @param {Array} props.products - The array of products currently displayed.
+ * @returns {JSX.Element} The rendered pagination component with navigation buttons.
+ *
  */
 function Pagination({
   currentPage,

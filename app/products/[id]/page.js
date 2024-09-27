@@ -2,16 +2,28 @@ import dynamic from "next/dynamic";
 import { ImageGallery } from "@/components/ImageGallery";
 import { ReviewsSort } from "@/components/SortReviews";
 
+/**
+ * Dynamically imports the BackButton component.
+ *
+ * This component is loaded only on the client side (SSR is disabled)
+ * to improve performance and reduce server-side rendering overhead.
+ *
+ * @constant {React.Component} BackButton
+ *
+ */
 const BackButton = dynamic(() => import("@/components/BackButton"), {
   ssr: false,
 });
 
 /**
- * Fetches product details from the API.
+ * Fetches product details data from the e-commerce API.
  *
- * @param {string} id - The ID of the product to fetch.
- * @returns {Promise<Object>} A promise that resolves to a product object.
- * @throws {Error} Throws an error if the fetch request fails.
+ * @async
+ * @function fetchProduct
+ * @param {string | number} id - The unique identifier of the product to fetch.
+ * @returns {Promise<Object>} A promise that resolves to the product data.
+ * @throws {Error} Throws an error if the response is not OK.
+ *
  */
 async function fetchProduct(id) {
   const res = await fetch(
@@ -30,12 +42,19 @@ async function fetchProduct(id) {
 }
 
 /**
- * The ProductDetails page component that displays detailed information about a single product.
+ * Renders the product details page.
  *
- * @param {Object} props - The props for the component.
- * @param {Object} props.params - The route parameters.
- * @param {string} props.params.id - The ID of the product to display.
- * @returns {JSX.Element} The rendered ProductDetails page component.
+ * This component fetches the product data based on the provided ID from the params
+ * and displays the product information, including its image gallery, details,
+ * availability, price, rating, tags, and reviews.
+ *
+ * @async
+ * @function ProductDetails
+ * @param {Object} params - The parameters object containing the product ID.
+ * @param {string | number} params.id - The unique identifier of the product.
+ * @returns {JSX.Element} The rendered product details component.
+ * @throws {Error} Throws an error if the product data fetch fails.
+ *
  */
 export default async function ProductDetails({ params }) {
   const { id } = params;
