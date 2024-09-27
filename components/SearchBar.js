@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { FaSearch } from "react-icons/fa"; // Import the search icon from react-icons
 
 /**
  * A component that displays a search bar.
@@ -34,27 +35,23 @@ export default function SearchBar() {
 
   return (
     <form onSubmit={handleSearch} className="mb-4">
-      <label
-        htmlFor="search"
-        className="block text-sm font-medium text-gray-700"
-      >
-        Search Products:
-      </label>
-      <div className="flex">
-        <input
-          type="text"
-          id="search"
-          value={searchQuery}
-          onChange={(event) => setSearchQuery(event.target.value)}
-          placeholder="Search products..."
-          className="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#2d7942]"
-        />
-        <button
-          type="submit"
-          className="px-4 py-2 bg-[#2d7942] text-white rounded-r-lg hover:bg-[#1d5931] transition-colors duration-300"
-        >
-          Search
-        </button>
+      <div className="flex items-center justify-center">
+        <div className="relative flex w-full max-w-md">
+          <input
+            type="text"
+            id="search"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder="Search Products"
+            className="flex-grow px-4 py-2 pl-6 text-gray-500 bg-white rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-[#2d7942] transition-all duration-300"
+          />
+          <button
+            type="submit"
+            className="absolute right-0 p-3 bg-[#2d7942] rounded-full text-white shadow-lg hover:bg-[#1d5931] transition-colors duration-300"
+          >
+            <FaSearch />
+          </button>
+        </div>
       </div>
     </form>
   );
