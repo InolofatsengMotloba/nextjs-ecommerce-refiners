@@ -5,24 +5,40 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FaSearch } from "react-icons/fa"; // Import the search icon from react-icons
 
 /**
- * A component that displays a search bar.
+ * SearchBar component that allows users to search for products.
  *
- * @returns {JSX.Element} The rendered SearchBar component.
+ * This component provides a search input that syncs with the URL query parameters and
+ * allows users to search for products by entering a search query. When the form is
+ * submitted, the search query is added to the URL, and the results are reset to the first page.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered search bar component.
  */
 export default function SearchBar() {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Sync search query with URL query parameters on load
+  /**
+   * Sync the search query state with the URL query parameters on component load.
+   * This effect reads the current search query from the URL and updates the component state.
+   */
   useEffect(() => {
     const search = searchParams.get("search") || "";
     setSearchQuery(search);
   }, [searchParams]);
 
+  /**
+   * Handle the form submission for searching.
+   * When the user submits the search form, the search query is added to the URL query parameters,
+   * and the page is reset to the first page.
+   *
+   * @param {Event} event - The submit event triggered by form submission.
+   */
   const handleSearch = (event) => {
     event.preventDefault();
 
+    // Update the URL search params with the search query
     const params = new URLSearchParams(searchParams);
     if (searchQuery) {
       params.set("search", searchQuery);

@@ -2,12 +2,35 @@
 
 import { useState } from "react";
 
+/**
+ * ReviewsSort component for sorting and displaying product reviews.
+ *
+ * This component allows users to sort reviews based on the date (latest or earliest)
+ * and rating (highest or lowest). It sorts the reviews accordingly and displays them with
+ * the reviewer's name, date, comment, and rating stars.
+ *
+ * @component
+ * @param {Object[]} reviews - The list of reviews to be sorted and displayed.
+ * @param {string} reviews[].reviewerName - The name of the reviewer.
+ * @param {number} reviews[].rating - The rating given by the reviewer (out of 5).
+ * @param {string} reviews[].comment - The comment provided by the reviewer.
+ * @param {string} reviews[].date - The date the review was created (ISO 8601 string).
+ * @returns {JSX.Element} The rendered ReviewsSort component.
+ */
 export function ReviewsSort({ reviews }) {
   const [sortOrder, setSortOrder] = useState("latest");
   const [ratingSortOrder, setRatingSortOrder] = useState("highest");
 
-  // Sorting reviews based on selected order
+  /**
+   * Sorts the reviews based on the selected sort and rating order.
+   *
+   * Reviews are sorted first by rating, then by date. When sorting by rating,
+   * if two reviews have the same rating, they will be sorted by date.
+   *
+   * @returns {Object[]} The sorted list of reviews.
+   */
   const sortedReviews = [...reviews].sort((a, b) => {
+    // Sort by rating
     if (ratingSortOrder === "highest") {
       if (b.rating !== a.rating) {
         return b.rating - a.rating; // highest rating first
@@ -18,6 +41,7 @@ export function ReviewsSort({ reviews }) {
       }
     }
 
+    // Sort by date
     if (sortOrder === "latest") {
       return new Date(b.date) - new Date(a.date); // latest first
     } else if (sortOrder === "earliest") {

@@ -4,6 +4,17 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaFilter } from "react-icons/fa";
 
+/**
+ * Fetches the list of product categories from the API.
+ * 
+ * The function sends a GET request to the specified API endpoint to retrieve
+ * categories. The request is cached with `force-cache`, and the response is
+ * revalidated every 1800 seconds (30 minutes). 
+ * 
+ * @throws {Error} If the response from the API is not successful (i.e., `res.ok` is `false`).
+ * 
+ * @returns {Promise<Array<string>>} A promise that resolves to an array of categories as strings.
+ */
 async function fetchCategories() {
   const res = await fetch("https://next-ecommerce-api.vercel.app/categories", {
     cache: "force-cache",
@@ -17,19 +28,35 @@ async function fetchCategories() {
   return res.json();
 }
 
+/**
+ * CategoryFilter component that allows users to filter products by category.
+ * 
+ * This component provides a dropdown of categories fetched from an API and allows users to filter
+ * the products list based on the selected category. The current selected category is synced
+ * with the URL query parameters.
+ * 
+ * @component
+ * @returns {JSX.Element} The rendered category filter component.
+ */
 export function CategoryFilter() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Sync the filter state with the query parameters on load
+  /**
+   * Sync the selected category with the query parameters on component load.
+   * This effect reads the current category from the URL and updates the component state.
+   */
   useEffect(() => {
     const category = searchParams.get("category") || "";
     setSelectedCategory(category);
   }, [searchParams]);
 
-  // Fetch categories when component mounts
+  /**
+   * Fetch the list of categories when the component mounts.
+   * This effect fetches the categories from the API and stores them in the component state.
+   */
   useEffect(() => {
     async function loadCategories() {
       try {
@@ -43,10 +70,18 @@ export function CategoryFilter() {
     loadCategories();
   }, []);
 
+  /**
+   * Handle changes in the category dropdown.
+   * When the user selects a category, the state is updated and the query parameters are
+   * modified to reflect the selected category. The page is also reset to page 1.
+   *
+   * @param {Event} event - The change event from the category dropdown.
+   */
   const handleCategoryChange = (event) => {
     const category = event.target.value;
     setSelectedCategory(category);
 
+    // Update the URL search params with the selected category
     const params = new URLSearchParams(searchParams);
     if (category) {
       params.set("category", category);

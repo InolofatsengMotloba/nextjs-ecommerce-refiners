@@ -5,9 +5,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FaSortAmountDown } from "react-icons/fa";
 
 /**
- * A component that provides sorting options for products.
- * Users can sort by price in ascending, descending order, or choose no sorting.
+ * PriceSort component for sorting products by price.
  *
+ * This component provides a dropdown to sort products by price either in ascending or
+ * descending order. The selected sort order is synced with the URL query parameters, and
+ * updates the product list accordingly.
+ *
+ * @component
  * @returns {JSX.Element} The rendered PriceSort component.
  */
 export default function PriceSort() {
@@ -15,16 +19,27 @@ export default function PriceSort() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Sync sort order with the URL query parameters on load
+  /**
+   * Sync the sort order state with the URL query parameters on component load.
+   * This effect reads the current sort order from the URL and updates the component state.
+   */
   useEffect(() => {
     const order = searchParams.get("order") || "";
     setSortOrder(order);
   }, [searchParams]);
 
+  /**
+   * Handle the change in sort order.
+   * When the user selects a sort order (ascending/descending), it updates the URL query parameters
+   * and resets the page to the first page.
+   *
+   * @param {Event} event - The change event triggered by selecting a sort option.
+   */
   const handleSortChange = (event) => {
     const selectedOrder = event.target.value;
     setSortOrder(selectedOrder);
 
+    // Update the URL search params with the sort order and reset page to 1
     const params = new URLSearchParams(searchParams);
     if (selectedOrder === "") {
       params.delete("sortBy");
@@ -40,7 +55,7 @@ export default function PriceSort() {
   return (
     <div className="mb-4">
       <div className="relative flex items-center space-x-2">
-        <FaSortAmountDown className="text-[#2d7942]" /> 
+        <FaSortAmountDown className="text-[#2d7942]" />
         <select
           id="sort"
           value={sortOrder}
