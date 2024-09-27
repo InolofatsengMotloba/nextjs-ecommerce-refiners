@@ -8,59 +8,58 @@ export function ReviewsSort({ reviews }) {
 
   // Sorting reviews based on selected order
   const sortedReviews = [...reviews].sort((a, b) => {
+    if (ratingSortOrder === "highest") {
+      if (b.rating !== a.rating) {
+        return b.rating - a.rating; // highest rating first
+      }
+    } else if (ratingSortOrder === "lowest") {
+      if (b.rating !== a.rating) {
+        return a.rating - b.rating; // lowest rating first
+      }
+    }
+
     if (sortOrder === "latest") {
       return new Date(b.date) - new Date(a.date); // latest first
     } else if (sortOrder === "earliest") {
       return new Date(a.date) - new Date(b.date); // earliest first
     }
-  });
 
-  // Sorting reviews by rating
-  const ratingSortedReviews = sortedReviews.sort((a, b) => {
-    if (ratingSortOrder === "highest") {
-      return b.rating - a.rating; // highest rating first
-    } else if (ratingSortOrder === "lowest") {
-      return a.rating - b.rating; // lowest rating first
-    }
+    return 0;
   });
 
   return (
     <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-      {/* Sort by Date */}
-      <div className="flex items-center mb-4">
-        <label htmlFor="sortOrder" className="mr-2 font-semibold">
-          Sort by Date:
-        </label>
-        <select
-          id="sortOrder"
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
-          className="border px-2 py-1 rounded-md"
-        >
-          <option value="latest">Latest Added</option>
-          <option value="earliest">Earliest Added</option>
-        </select>
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg font-extrabold">Reviews</h3>
+        <div className="flex items-center">
+          {/* Sort by Date */}
+          <select
+            id="sortOrder"
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+            className="border border-black  bg-gray-100 rounded-full shadow-sm px-3 py-2 mr-2 focus:outline-none focus:ring-[#2d7942] focus:border-[#2d7942]"
+          >
+            <option value="default">Sort: Date</option> {/* Default option */}
+            <option value="latest">Latest Added</option>
+            <option value="earliest">Earliest Added</option>
+          </select>
+
+          {/* Sort by Rating */}
+          <select
+            id="ratingSortOrder"
+            value={ratingSortOrder}
+            onChange={(e) => setRatingSortOrder(e.target.value)}
+            className="border border-black  bg-gray-100 rounded-full shadow-sm px-3 py-2 focus:outline-none focus:ring-[#2d7942] focus:border-[#2d7942]"
+          >
+            <option value="default">Sort: Rating</option> {/* Default option */}
+            <option value="highest">Highest Rating</option>
+            <option value="lowest">Lowest Rating</option>
+          </select>
+        </div>
       </div>
 
-      {/* Sort by Rating */}
-      <div className="flex items-center mb-4">
-        <label htmlFor="ratingSortOrder" className="mr-2 font-semibold">
-          Sort by Rating:
-        </label>
-        <select
-          id="ratingSortOrder"
-          value={ratingSortOrder}
-          onChange={(e) => setRatingSortOrder(e.target.value)}
-          className="border px-2 py-1 rounded-md"
-        >
-          <option value="highest">Highest Rating</option>
-          <option value="lowest">Lowest Rating</option>
-        </select>
-      </div>
-
-      <h3 className="text-lg font-extrabold mb-4">Reviews</h3>
-      {ratingSortedReviews.length > 0 ? (
-        ratingSortedReviews.map((review) => (
+      {sortedReviews.length > 0 ? (
+        sortedReviews.map((review) => (
           <div
             key={`${review.reviewerName}-${review.date}`}
             className="mb-4 border-b pb-4"
