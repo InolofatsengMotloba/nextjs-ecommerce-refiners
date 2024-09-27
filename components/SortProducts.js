@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { FaSortAmountDown } from "react-icons/fa";
 
 /**
  * A component that provides sorting options for products.
@@ -38,19 +39,29 @@ export default function PriceSort() {
 
   return (
     <div className="mb-4">
-      <label htmlFor="sort" className="block text-sm font-medium text-gray-700">
-        Sort by Price:
-      </label>
-      <select
-        id="sort"
-        value={sortOrder}
-        onChange={handleSortChange}
-        className="mt-1 block w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-[#2d7942] focus:border-[#2d7942]"
-      >
-        <option value="">Default</option>
-        <option value="asc">Price: Low to High</option>
-        <option value="desc">Price: High to Low</option>
-      </select>
+      <div className="relative flex items-center space-x-2">
+        <FaSortAmountDown className="text-[#2d7942]" /> 
+        <select
+          id="sort"
+          value={sortOrder}
+          onChange={handleSortChange}
+          className="w-52 px-4 py-2 bg-white text-black rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-[#2d7942] transition-all duration-300 overflow-hidden"
+        >
+          <option value="">Default</option>
+          <option
+            value="asc"
+            className="px-4 py-2 hover:bg-[#2d7942] hover:text-white transition-colors duration-300 rounded-md"
+          >
+            Price: Low to High
+          </option>
+          <option
+            value="desc"
+            className="px-4 py-2 hover:bg-[#2d7942] hover:text-white transition-colors duration-300 rounded-md"
+          >
+            Price: High to Low
+          </option>
+        </select>
+      </div>
     </div>
   );
 }
