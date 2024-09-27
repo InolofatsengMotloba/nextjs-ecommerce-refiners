@@ -43,6 +43,7 @@ export function ImageGallery({ images }) {
           className="w-full h-full object-contain bg-gray-100 transition-transform duration-500"
           width={400}
           height={300}
+          priority
         />
         {images.length > 1 && (
           <>
@@ -78,6 +79,7 @@ export function ImageGallery({ images }) {
               width={24}
               height={24}
               onClick={() => setCurrentIndex(index)}
+              priority
             />
           ))}
         </div>
@@ -125,6 +127,7 @@ export function SingleImageGallery({ images }) {
         className="w-full h-full object-contain transition-transform duration-500 bg-gray-100"
         height={60}
         width={310}
+        priority
       />
       {images.length > 1 && (
         <>
