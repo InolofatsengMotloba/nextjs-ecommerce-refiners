@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { FaFilter } from "react-icons/fa"; 
 
 async function fetchCategories() {
   const res = await fetch("https://next-ecommerce-api.vercel.app/categories");
 
   if (!res.ok) {
-    throw new Error("Failed to fetch categories");
+    throw error;
   }
 
   return res.json();
@@ -32,7 +33,7 @@ export function CategoryFilter() {
         const fetchedCategories = await fetchCategories();
         setCategories(fetchedCategories);
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        throw error;
       }
     }
 
@@ -55,25 +56,26 @@ export function CategoryFilter() {
 
   return (
     <div className="mb-4">
-      <label
-        htmlFor="category"
-        className="block text-sm font-medium text-gray-700"
-      >
-        Filter by Category:
-      </label>
-      <select
-        id="category"
-        value={selectedCategory}
-        onChange={handleCategoryChange}
-        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#2d7942] focus:border-[#2d7942]"
-      >
-        <option value="">All Categories</option>
-        {categories.map((category) => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
-      </select>
+      <div className="relative flex items-center space-x-2">
+        <FaFilter className="text-[#2d7942]" />
+        <select
+          id="category"
+          value={selectedCategory}
+          onChange={handleCategoryChange}
+          className="w-50 px-4 py-2 bg-white text-black rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-[#2d7942] transition-all duration-300"
+        >
+          <option value="">All Categories</option>
+          {categories.map((category) => (
+            <option
+              key={category}
+              value={category}
+              className="px-4 py-2 text-gray-700 hover:bg-[#2d7942] hover:text-white transition-colors duration-300 rounded-md"
+            >
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 }
