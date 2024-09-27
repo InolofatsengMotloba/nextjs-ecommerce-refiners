@@ -62,7 +62,7 @@ export function CategoryFilter() {
           id="category"
           value={selectedCategory}
           onChange={handleCategoryChange}
-          className="w-50 px-4 py-2 bg-white text-black rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-[#2d7942] transition-all duration-300"
+          className="w-52 px-4 py-2 bg-white text-black rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-[#2d7942] transition-all duration-300"
         >
           <option value="">All Categories</option>
           {categories.map((category) => (
