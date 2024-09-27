@@ -31,9 +31,8 @@ async function fetchProducts(
   const res = await fetch(
     `https://next-ecommerce-api.vercel.app/products?limit=20&skip=${skip}${searchParam}${categoryParam}${sortParam}`,
     {
-      
-      cache: "force-cache", 
-      next: { revalidate: 60 }, 
+      cache: "force-cache",
+      next: { revalidate: 60 },
     }
   );
 
@@ -70,18 +69,18 @@ export default async function Products({ searchParams }) {
   return (
     <div>
       <div className="max-w-[90rem] mx-auto p-8 pb-12 gap-8 sm:p-12 min-h-screen">
-        <h1 className="grid items-center justify-center text-2xl font-bold mb-6">
-          PRODUCTS
-        </h1>
+        <div className="flex flex-col md:flex-row justify-between mb-4 gap-4">
+          {/* Search Bar */}
+          <div className="w-full md:w-2/3">
+            <SearchBar initialSearch={search} />
+          </div>
 
-        {/* Filter by Category */}
-        <CategoryFilter initialCategory={category} />
-
-        {/* Search Bar */}
-        <SearchBar initialSearch={search} />
-
-        {/* Sort by Price */}
-        <PriceSort />
+          {/* Filter and Sort */}
+          <div className="flex gap-4 justify-end w-full md:w-auto">
+            <CategoryFilter initialCategory={category} />
+            <PriceSort />
+          </div>
+        </div>
 
         {/* Reset Button */}
         <ResetButton />

@@ -35,7 +35,7 @@ export default function SearchBar() {
 
   return (
     <form onSubmit={handleSearch} className="mb-4">
-      <div className="flex items-center justify-center">
+      <div className="flex">
         <div className="relative flex w-full max-w-md">
           <input
             type="text"

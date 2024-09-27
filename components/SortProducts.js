@@ -47,7 +47,7 @@ export default function PriceSort() {
           onChange={handleSortChange}
           className="w-52 px-4 py-2 bg-white text-black rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-[#2d7942] transition-all duration-300 overflow-hidden"
         >
-          <option value="">Default</option>
+          <option value="">Sort: Default</option>
           <option
             value="asc"
             className="px-4 py-2 hover:bg-[#2d7942] hover:text-white transition-colors duration-300 rounded-md"
