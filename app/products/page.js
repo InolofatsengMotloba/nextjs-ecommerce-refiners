@@ -92,9 +92,13 @@ export default async function Products({ searchParams }) {
           </div>
 
           {/* Filter and Sort */}
-          <div className="flex gap-4 justify-end w-full md:w-auto">
-            <CategoryFilter initialCategory={category} />
-            <PriceSort />
+          <div className="flex flex-col md:flex-row gap-4 justify-between w-full md:w-auto">
+            <div className="w-full md:w-auto">
+              <CategoryFilter initialCategory={category} />
+            </div>
+            <div className="w-full md:w-auto">
+              <PriceSort />
+            </div>
           </div>
         </div>
 
