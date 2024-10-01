@@ -3,13 +3,18 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function NavBar() {
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
+  const pathname = usePathname();
 
   const toggleNavbar = () => {
     setIsNavbarVisible(!isNavbarVisible);
   };
+
+  const isActive = (route) =>
+    pathname === route ? "text-[#2d7942]" : "text-white";
 
   return (
     <header className="bg-black text-white py-2 sticky top-0 z-50">
@@ -47,13 +52,22 @@ export default function NavBar() {
 
         {/* Larger Screens Menu */}
         <nav className="hidden md:flex flex-1 justify-center space-x-8">
-          <Link href="/" className="text-lg hover:underline">
+          <Link
+            href="/"
+            className={`text-lg hover:text-gray-500 ${isActive("/")}`}
+          >
             Home
           </Link>
-          <Link href="/products" className="text-lg hover:underline">
+          <Link
+            href="/products"
+            className={`text-lg hover:text-gray-500 ${isActive("/products")}`}
+          >
             Products
           </Link>
-          <Link href="/cart" className="text-lg hover:underline">
+          <Link
+            href="/cart"
+            className={`text-lg hover:text-gray-500 ${isActive("/cart")}`}
+          >
             Cart
           </Link>
         </nav>
@@ -62,7 +76,9 @@ export default function NavBar() {
         <div className="hidden md:block">
           <Link
             href="/login"
-            className="text-white py-2 px-4 rounded hover:bg-gray-500"
+            className={`py-2 px-4 rounded hover:bg-gray-500 ${isActive(
+              "/login"
+            )}`}
           >
             Login
           </Link>
@@ -74,22 +90,34 @@ export default function NavBar() {
         <div className="md:hidden bg-black">
           <ul className="flex flex-col items-center space-y-4 py-4">
             <li>
-              <Link href="/" className="text-lg hover:underline">
+              <Link
+                href="/"
+                className={`text-lg hover:underline ${isActive("/")}`}
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/products" className="text-lg hover:underline">
+              <Link
+                href="/products"
+                className={`text-lg hover:underline ${isActive("/products")}`}
+              >
                 Products
               </Link>
             </li>
             <li>
-              <Link href="/cart" className="text-lg hover:underline">
+              <Link
+                href="/cart"
+                className={`text-lg hover:underline ${isActive("/cart")}`}
+              >
                 Cart
               </Link>
             </li>
             <li>
-              <Link href="/login" className="text-lg hover:underline">
+              <Link
+                href="/login"
+                className={`text-lg hover:underline ${isActive("/login")}`}
+              >
                 Login
               </Link>
             </li>
