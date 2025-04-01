@@ -1,4 +1,4 @@
-# 🏪 NEXT.JS CHALLENGE | FSJ 02👔
+# 🏪 NEXT.JS CHALLENGE
 
 ## 🛒 Introduction
 In this project, I built an e-commerce store that features a product browsing system with pagination, detailed product views, refinement functionalities such as filter, sort and search, and robust error handling. This experience allowed me to dive into essential web development concepts such as server-side rendering and efficient data fetching, all while ensuring a smooth and engaging user experience for exploring products and handling potential issues.
